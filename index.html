@@ -112,15 +112,24 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
-      justify-content: space-between;
     }
 
-    .top-actions-left,
+    .top-actions-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      flex: 1 1 auto;
+    }
+
     .top-actions-right {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
+      justify-content: flex-end;
+      margin-left: auto;
+      flex: 0 0 auto;
     }
 
     .btn {
@@ -294,6 +303,16 @@
         height: 85vh;
         min-height: 900px;
       }
+
+      .top-actions-left,
+      .top-actions-right {
+        width: 100%;
+      }
+
+      .top-actions-right {
+        justify-content: flex-start;
+        margin-left: 0;
+      }
     }
 
     @media (max-width: 700px) {
@@ -330,6 +349,11 @@
       .top-actions-left,
       .top-actions-right {
         width: 100%;
+      }
+
+      .top-actions-right {
+        justify-content: flex-start;
+        margin-left: 0;
       }
 
       .contact-link,
@@ -440,9 +464,9 @@
       <div class="card">
         <h2>Conseil pour la visualisation du rapport</h2>
         <ul class="list">
-          <li>Pour changer de page sur le rapport, allez dans le menu déroulant en bas à gauche du rapport.;</li>
-           <li>Pour une visualisation optimale et dynamique du rapport sur téléphone, privilégiez le mode paysage en tournant votre téléphone.;</li>
-          <li> En raison de l'appel de nombreuses données, le temps de chargement des pages est estimé à 10-15 secondes</li>
+          <li>Pour changer de page sur le rapport, allez dans le menu déroulant en bas à gauche du rapport ;</li>
+          <li>Pour une visualisation optimale et dynamique du rapport sur téléphone, privilégiez le mode paysage en tournant votre téléphone ;</li>
+          <li>En raison de l'appel de nombreuses données, le temps de chargement des pages est estimé à 10-15 secondes.</li>
         </ul>
       </div>
     </section>
