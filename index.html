@@ -173,6 +173,49 @@
       line-height: 1.7;
     }
 
+    .embed-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-top: 22px;
+    }
+
+    .embed-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .embed-title h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .embed-title span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .iframe-wrap {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 120px);
+      min-height: 1100px;
+      border: 0;
+      display: block;
+      background: #ffffff;
+    }
+
     footer {
       max-width: 1600px;
       margin: 0 auto 30px auto;
@@ -190,6 +233,11 @@
       h1 {
         font-size: 28px;
       }
+
+      iframe {
+        height: 85vh;
+        min-height: 900px;
+      }
     }
 
     @media (max-width: 700px) {
@@ -202,6 +250,11 @@
       footer {
         padding-left: 16px;
         padding-right: 16px;
+      }
+
+      iframe {
+        height: 80vh;
+        min-height: 700px;
       }
 
       .hint {
@@ -257,6 +310,22 @@
           <li>sources de données et méthodologie ;</li>
           <li>tableaux et simulations.</li>
         </ul>
+      </div>
+    </section>
+
+    <section id="rapport" class="embed-card">
+      <div class="embed-title">
+        <h2>Prévisualisation du rapport</h2>
+        <span>Consultation publique</span>
+      </div>
+
+      <div class="iframe-wrap">
+        <iframe
+          src="https://datastudio.google.com/embed/reporting/1a04a388-cd35-4495-8003-0ea8d7411247/page/p_56qzvkrt2d"
+          frameborder="0"
+          allowfullscreen
+          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+        </iframe>
       </div>
     </section>
   </main>
