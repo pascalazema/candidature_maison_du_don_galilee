@@ -47,6 +47,30 @@
       margin: 0 auto;
     }
 
+    .header-layout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .header-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .profile-photo {
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      border: 4px solid #ffffff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+      flex: 0 0 auto;
+      background: #ffffff;
+    }
+
     .kicker {
       display: inline-block;
       font-size: 13px;
@@ -269,6 +293,16 @@
         padding-top: 28px;
       }
 
+      .header-layout {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+      }
+
+      .profile-photo {
+        width: 110px;
+        height: 110px;
+      }
+
       .top-actions-inner,
       main,
       footer {
@@ -302,12 +336,18 @@
 <body>
   <header>
     <div class="wrap">
-      <div class="kicker">MAISON DU DON GALILÉE - LABÈGE</div>
-      <h1>Rapport interactif et dossier de candidature - Azema Pascal</h1>
-      <p class="subtitle">
-        Cette page centralise le rapport interactif Looker Studio, les éléments de méthode
-        et les sources mobilisées dans le cadre du dossier de candidature.
-      </p>
+      <div class="header-layout">
+        <div class="header-text">
+          <div class="kicker">MAISON DU DON GALILÉE - LABÈGE</div>
+          <h1>Rapport interactif et dossier de candidature - Azema Pascal</h1>
+          <p class="subtitle">
+            Cette page centralise le rapport interactif Looker Studio, les éléments de méthode
+            et les sources mobilisées dans le cadre du dossier de candidature.
+          </p>
+        </div>
+
+        <img class="profile-photo" src="photo_pascal.jpg" alt="Photo de Pascal Azema">
+      </div>
     </div>
   </header>
 
