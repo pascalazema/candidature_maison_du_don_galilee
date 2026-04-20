@@ -4,16 +4,551 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sources et méthodologie</title>
+
   <style>
-    body { font-family: Arial, sans-serif; max-width: 1000px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
-    h1 { margin-bottom: 16px; }
-    a { color: #0b57d0; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #002f6c;
+      --primary-dark: #001f49;
+      --accent: #c62828;
+      --radius: 14px;
+      --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ffffff 0%, #f3f6fb 100%);
+      border-bottom: 1px solid var(--line);
+      padding: 36px 24px 24px 24px;
+    }
+
+    .wrap {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 34px;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      max-width: 1000px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .top-actions {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(245, 247, 251, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .top-actions-inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--primary);
+      border-color: var(--line);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+    }
+
+    main {
+      max-width: 1600px;
+      margin: 26px auto 40px auto;
+      padding: 0 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1500px;
+      font-size: 14px;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #002f6c;
+      color: #ffffff;
+      text-align: left;
+      padding: 12px;
+      vertical-align: top;
+      border-right: 1px solid rgba(255,255,255,0.25);
+      z-index: 2;
+    }
+
+    td {
+      padding: 12px;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+    }
+
+    tr:nth-child(even) {
+      background: #fafafa;
+    }
+
+    .col-type { width: 90px; }
+    .col-nom { width: 120px; }
+    .col-variable { width: 310px; }
+    .col-source { width: 300px; }
+    .col-annee { width: 120px; }
+    .col-type-source { width: 190px; }
+    .col-precision { width: 520px; }
+
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      max-width: 1600px;
+      margin: 0 auto 30px auto;
+      padding: 0 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 28px;
+      }
+
+      main,
+      footer,
+      .top-actions-inner {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <h1>Sources et méthodologie</h1>
-  <p>Cette page regroupe les éléments méthodologiques, les hypothèses de simulation et les sources mobilisées pour le rapport.</p>
-  <p><a href="index.html">Retour au rapport</a></p>
+  <header>
+    <div class="wrap">
+      <div class="kicker">MAISON DU DON GALILÉE - LABÈGE</div>
+      <h1>Sources et méthodologie</h1>
+      <p class="subtitle">
+        Cette page regroupe les sources mobilisées, les variables exploitées et les précisions méthodologiques associées au rapport interactif.
+      </p>
+    </div>
+  </header>
+
+  <div class="top-actions">
+    <div class="top-actions-inner">
+      <a class="btn btn-primary" href="index.html">Retour au rapport</a>
+      <a class="btn btn-secondary" href="https://datastudio.google.com/embed/reporting/1a04a388-cd35-4495-8003-0ea8d7411247/page/p_56qzvkrt2d" target="_blank">Voir le rapport</a>
+    </div>
+  </div>
+
+  <main>
+    <section class="card">
+      <h2>Tableau des sources</h2>
+      <p class="small">
+        Les lignes ci-dessous documentent les données utilisées dans les cartes, graphiques et tableaux du rapport.
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-type">Type</th>
+              <th class="col-nom">Nom</th>
+              <th class="col-variable">Variable exploitée</th>
+              <th class="col-source">Source</th>
+              <th class="col-annee">Année source</th>
+              <th class="col-type-source">Type source</th>
+              <th class="col-precision">Précision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Graphique</td>
+              <td>Graphique 1</td>
+              <td>Nombre de x-x ans</td>
+              <td>Insee, Recensement de population</td>
+              <td>2022</td>
+              <td>Habitants</td>
+              <td>Il s’agit de la population comptabilisée au dernier recensement général de population.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 1</td>
+              <td>Indice de jeunesse</td>
+              <td>Insee, Recensement de population</td>
+              <td>2022</td>
+              <td>Nombre de moins de 20 ans pour 100 personnes de 60 ans et plus</td>
+              <td>L’indicateur de jeunesse est le rapport entre la population âgée de moins de 20 ans et celle des 60 ans et plus.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 1</td>
+              <td>Ratio femmes / hommes</td>
+              <td>Insee, Recensement de population</td>
+              <td>2022</td>
+              <td>Ratio</td>
+              <td>Le ratio femmes / hommes est calculé à partir d’une division du nombre de femmes par le nombre d’hommes. Si sa valeur est supérieure à 1, cela signifie qu’il y a plus de femmes que d’hommes. Si sa valeur est inférieure à 1, cela signifie qu’il y a plus d’hommes que de femmes.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 1</td>
+              <td>Indice de concentration de l’emploi</td>
+              <td>Insee, Recensement de population</td>
+              <td>2022</td>
+              <td>Emplois pour 100 actifs occupés</td>
+              <td>L’indice de concentration de l’emploi mesure le rapport entre le nombre d’emplois total proposés sur un territoire et le nombre d’actifs occupés qui y résident. Il permet d’apprécier la fonction de pôle d’emploi ou la fonction résidentielle d’un espace. Si cet indice est supérieur à 100, le nombre d’emplois proposés localement est supérieur au nombre d’actifs occupés résidents.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 1</td>
+              <td>Part des actifs occupés de 15 ans et plus travaillant dans une autre commune que leur commune de résidence</td>
+              <td>Insee, Recensement de population</td>
+              <td>2022</td>
+              <td>%</td>
+              <td>L’indicateur représente la part des actifs occupés, c’est-à-dire des actifs ayant un emploi, qui travaillent en dehors de leur commune de résidence. Il permet d’appréhender l’importance des déplacements domicile-travail.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 1</td>
+              <td>Part des actifs occupés de 15-64 ans</td>
+              <td>Insee, Recensement de population</td>
+              <td>2022</td>
+              <td>%</td>
+              <td>Il s’agit de la population active occupée âgée de 15 à 64 ans, c’est-à-dire la population ayant un emploi.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 2</td>
+              <td>Médiane tranche effectifs</td>
+              <td>Répertoire SIRENE</td>
+              <td>15/04/2026</td>
+              <td>Nombre</td>
+              <td>Le répertoire SIRENE exprimant les effectifs par classes, nous avons créé ce champ en appliquant la médiane de chaque tranche. Par exemple, la tranche 5 000 à 9 999 salariés donne une médiane de 7 499,50. Ce calcul permet de mieux percevoir les effectifs dans leur globalité, mais a le défaut de perdre en précision.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 2</td>
+              <td>Catégorie juridique</td>
+              <td>Répertoire SIRENE</td>
+              <td>15/04/2026</td>
+              <td>Texte</td>
+              <td>Variable issue du répertoire SIRENE, permettant de qualifier la forme juridique de l’établissement ou de l’unité légale.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 2</td>
+              <td>Adresse entreprise</td>
+              <td>Répertoire SIRENE x API Google Routes x API Google Data Matrix</td>
+              <td>15/04/2026</td>
+              <td>Texte</td>
+              <td>Les adresses sont extraites du fichier SIRENE. À noter que certaines adresses, environ 10 %, ne sont pas correctement renseignées, notamment lorsque le numéro de voie est absent.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 3</td>
+              <td>Médiane tranche effectifs</td>
+              <td>Répertoire SIRENE</td>
+              <td>15/04/2026</td>
+              <td>Nombre</td>
+              <td>Le répertoire SIRENE exprimant les effectifs par classes, nous avons créé ce champ en appliquant la médiane de chaque tranche. Par exemple, la tranche 5 000 à 9 999 salariés donne une médiane de 7 499,50.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 3</td>
+              <td>Temps de trajet en voiture, sans prise en compte du trafic</td>
+              <td>Répertoire SIRENE x API Google Routes x API Google Data Matrix</td>
+              <td>15/04/2026</td>
+              <td>Minutes</td>
+              <td>Cette variable est calculée à partir des adresses SIRENE. Certaines adresses ne sont pas correctement renseignées, notamment lorsque le numéro de voie est absent. La variable est calculée en appelant les API Google Routes et Geocoding. La qualité des calculs dépend de la complétude de l’adresse dans la base SIRENE. Estimation : 90 % de données fiables.<br><br>En se basant sur l’arrêté municipal d’autorisation de travaux n°031.254.26.0.0002 « Maison du don Galilée - Établissement Français du Sang », délivré par le maire au nom de l’État, l’adresse de destination retenue est : 185 rue Galilée, 31670 Labège.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 3</td>
+              <td>Adresse entreprise</td>
+              <td>Répertoire SIRENE x API Google Routes x API Google Data Matrix</td>
+              <td>15/04/2026</td>
+              <td>Texte</td>
+              <td>Les adresses sont extraites du fichier SIRENE. À noter que certaines adresses, environ 10 %, ne sont pas correctement renseignées, notamment lorsque le numéro de voie est absent.</td>
+            </tr>
+
+            <tr>
+              <td>Graphique</td>
+              <td>Graphique 2</td>
+              <td>Nombre de x-x ans</td>
+              <td>Insee, Recensement de population</td>
+              <td>2022</td>
+              <td>Habitants</td>
+              <td>Il s’agit de la population comptabilisée au dernier recensement général de population.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 4</td>
+              <td>Adresse lieux de collecte</td>
+              <td>https://dondesang.efs.sante.fr/trouver-une-collecte</td>
+              <td>15/04/2026</td>
+              <td>Texte</td>
+              <td>Récolte des données affichées sur le site https://dondesang.efs.sante.fr/trouver-une-collecte.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 4</td>
+              <td>Type lieux</td>
+              <td>https://dondesang.efs.sante.fr/trouver-une-collecte</td>
+              <td>15/04/2026</td>
+              <td>Texte</td>
+              <td>Récolte des données affichées sur le site https://dondesang.efs.sante.fr/trouver-une-collecte.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 4</td>
+              <td>Maison du don Galilée</td>
+              <td>https://www.labege.fr/app/uploads/sites/17/2026/02/050D_2026.pdf</td>
+              <td>15/04/2026</td>
+              <td>Texte</td>
+              <td>En se basant sur l’arrêté municipal d’autorisation de travaux n°031.254.26.0.0002 « Maison du don Galilée - Établissement Français du Sang », délivré par le maire au nom de l’État, l’adresse de destination retenue est : 185 rue Galilée, 31670 Labège.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 5</td>
+              <td>Effectif des établissements d’enseignement supérieur, étudiants inscrits, total des formations d’enseignement supérieur</td>
+              <td>Ministère de l’Enseignement supérieur et de la Recherche, rentrée 2022</td>
+              <td>15/04/2026</td>
+              <td>Nombre</td>
+              <td>Donnée mobilisée pour identifier les pôles d’enseignement supérieur et les volumes étudiants présents sur le territoire.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 6</td>
+              <td>Lycée de secteur</td>
+              <td>Ministère de l’Éducation nationale</td>
+              <td>15/04/2026</td>
+              <td>Adresse</td>
+              <td>Donnée utilisée pour localiser les établissements scolaires de secteur et apprécier leur proximité avec la Maison du don Galilée.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 7</td>
+              <td>Part des actifs occupés de 15 ans et plus travaillant dans une autre commune que leur commune de résidence</td>
+              <td>Insee, Recensement de population</td>
+              <td>2022</td>
+              <td>%</td>
+              <td>L’indicateur représente la part des actifs occupés, c’est-à-dire des actifs ayant un emploi, qui travaillent en dehors de leur commune de résidence. Il permet d’appréhender l’importance des déplacements domicile-travail.</td>
+            </tr>
+
+            <tr>
+              <td>Tableau</td>
+              <td>Tableau 1</td>
+              <td>Maires élus en 2026</td>
+              <td>Le Monde</td>
+              <td>2026</td>
+              <td>Nom</td>
+              <td>En l’absence d’une mise à jour du Répertoire national des élus, ces informations ont été récoltées sur le site du Monde.</td>
+            </tr>
+
+            <tr>
+              <td>Tableau</td>
+              <td>Tableau 2</td>
+              <td>Médiane tranche effectifs</td>
+              <td>Répertoire SIRENE</td>
+              <td>15/04/2026</td>
+              <td>Nombre</td>
+              <td>Le répertoire SIRENE exprimant les effectifs par classes, nous avons créé ce champ en appliquant la médiane de chaque tranche. Par exemple, la tranche 5 000 à 9 999 salariés donne une médiane de 7 499,50.</td>
+            </tr>
+
+            <tr>
+              <td>Tableau</td>
+              <td>Tableau 2</td>
+              <td>Catégorie juridique</td>
+              <td>Répertoire SIRENE</td>
+              <td>15/04/2026</td>
+              <td>Texte</td>
+              <td>Variable issue du répertoire SIRENE, permettant de qualifier la forme juridique de l’établissement ou de l’unité légale.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 8</td>
+              <td>Médiane tranche effectifs</td>
+              <td>Répertoire SIRENE</td>
+              <td>15/04/2026</td>
+              <td>Nombre</td>
+              <td>Le répertoire SIRENE exprimant les effectifs par classes, nous avons créé ce champ en appliquant la médiane de chaque tranche. Ce calcul permet de mieux percevoir les effectifs dans leur globalité, mais a le défaut de perdre en précision.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 8</td>
+              <td>Temps de trajet en voiture, sans prise en compte du trafic</td>
+              <td>Répertoire SIRENE x API Google Routes x API Google Data Matrix</td>
+              <td>15/04/2026</td>
+              <td>Minutes</td>
+              <td>Cette variable est calculée à partir des adresses SIRENE. La variable est calculée en appelant les API Google Routes et Geocoding. La qualité des calculs dépend de la complétude de l’adresse dans la base SIRENE. Estimation : 90 % de données fiables.<br><br>L’adresse de destination retenue pour la Maison du don Galilée est : 185 rue Galilée, 31670 Labège.</td>
+            </tr>
+
+            <tr>
+              <td>Carte</td>
+              <td>Carte 8</td>
+              <td>Adresse entreprise</td>
+              <td>Répertoire SIRENE x API Google Routes x API Google Data Matrix</td>
+              <td>15/04/2026</td>
+              <td>Texte</td>
+              <td>Les adresses sont extraites du fichier SIRENE. À noter que certaines adresses, environ 10 %, ne sont pas correctement renseignées, notamment lorsque le numéro de voie est absent.</td>
+            </tr>
+
+            <tr>
+              <td>Tableau</td>
+              <td>Tableau 3</td>
+              <td>Temps de trajet en voiture, sans prise en compte du trafic</td>
+              <td>Répertoire SIRENE x API Google Routes x API Google Data Matrix</td>
+              <td>15/04/2026</td>
+              <td>Minutes</td>
+              <td>Cette variable est calculée à partir des adresses SIRENE. La variable est calculée en appelant les API Google Routes et Geocoding. La qualité des calculs dépend de la complétude de l’adresse dans la base SIRENE. Estimation : 90 % de données fiables.<br><br>L’adresse de destination retenue pour la Maison du don Galilée est : 185 rue Galilée, 31670 Labège.</td>
+            </tr>
+
+            <tr>
+              <td>Tableau</td>
+              <td>Tableau 3</td>
+              <td>Donneurs sang</td>
+              <td>Estimations par calcul en se basant sur le rapport d’activité EFS 2024<br>https://www.efs.sante.fr/sites/default/files/2025-04/Rapport%20d%27activit%C3%A9%202024_0.pdf</td>
+              <td>15/04/2026</td>
+              <td>Nombre</td>
+              <td>Estimation réalisée en appliquant à la médiane de tranche d’effectif de chaque établissement un taux de conversion décroissant selon le temps de trajet en voiture vers la Maison du don. Trois scénarios ont été simulés : bas, neutre et haut, pour les classes de temps &lt;5 min, 5-10 min, 10-20 min, 20-30 min et 30+ min.</td>
+            </tr>
+
+            <tr>
+              <td>Tableau</td>
+              <td>Tableau 3</td>
+              <td>Donneurs plasma</td>
+              <td>Estimations par calcul en se basant sur le rapport d’activité EFS 2024<br>https://www.efs.sante.fr/sites/default/files/2025-04/Rapport%20d%27activit%C3%A9%202024_0.pdf</td>
+              <td>15/04/2026</td>
+              <td>Nombre</td>
+              <td>Estimation réalisée en appliquant à la médiane de tranche d’effectif de chaque établissement un taux de conversion décroissant selon le temps de trajet en voiture vers la Maison du don. Trois scénarios ont été simulés : bas, neutre et haut, pour les classes de temps &lt;5 min, 5-10 min, 10-20 min, 20-30 min et 30+ min.</td>
+            </tr>
+
+            <tr>
+              <td>Tableau</td>
+              <td>Tableau 3</td>
+              <td>Dons sang</td>
+              <td>Estimations par calcul en se basant sur le rapport d’activité EFS 2024<br>https://www.efs.sante.fr/sites/default/files/2025-04/Rapport%20d%27activit%C3%A9%202024_0.pdf</td>
+              <td>15/04/2026</td>
+              <td>Nombre</td>
+              <td>Cette variable reprend l’estimation des donneurs sang, puis applique une fréquence annuelle moyenne de 1,5 don par donneur, d’après le rapport d’activité EFS 2024. Trois scénarios ont été retenus : bas, neutre et haut, avec les mêmes taux de conversion par temps de trajet que pour les donneurs sang.</td>
+            </tr>
+
+            <tr>
+              <td>Tableau</td>
+              <td>Tableau 3</td>
+              <td>Dons plasma</td>
+              <td>Estimations par calcul en se basant sur le rapport d’activité EFS 2024<br>https://www.efs.sante.fr/sites/default/files/2025-04/Rapport%20d%27activit%C3%A9%202024_0.pdf</td>
+              <td>15/04/2026</td>
+              <td>Nombre</td>
+              <td>Cette variable reprend l’estimation des donneurs plasma, puis applique une fréquence annuelle moyenne de 2,4 dons par donneur, d’après le rapport d’activité EFS 2024. Trois scénarios ont été retenus : bas, neutre et haut, avec les mêmes taux de conversion par temps de trajet que pour les donneurs plasma.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Page publiée via GitHub Pages. Les sources présentées documentent les données et hypothèses utilisées dans le rapport interactif.
+  </footer>
 </body>
 </html>
