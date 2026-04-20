@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rapport interactif et dossier de candidature - Azema Pascal</title>
+  <meta name="description" content="Rapport interactif - Maison du don Galilée - Labège / Azema Pascal">
 
   <style>
     :root {
@@ -15,8 +16,17 @@
       --primary: #002f6c;
       --primary-dark: #001f49;
       --accent: #c62828;
+      --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
       --radius: 14px;
-      --shadow: 0 6px 18px rgba(0,0,0,0.08);
+      --max: 1600px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -27,181 +37,435 @@
     }
 
     header {
-      background: linear-gradient(135deg,#fff,#f3f6fb);
+      background: linear-gradient(135deg, #ffffff 0%, #f3f6fb 100%);
       border-bottom: 1px solid var(--line);
-      padding: 36px 24px;
+      padding: 36px 24px 24px 24px;
     }
 
     .wrap {
-      max-width: 1600px;
-      margin: auto;
+      max-width: var(--max);
+      margin: 0 auto;
     }
 
     .header-layout {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      gap: 30px;
+      gap: 28px;
     }
 
-    .profile-side {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
+    .header-text {
+      flex: 1;
+      min-width: 0;
     }
 
     .profile-photo {
-      width: 140px;
-      height: 140px;
+      width: 145px;
+      height: 145px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #fff;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      object-position: center;
+      border: 4px solid #ffffff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+      flex: 0 0 auto;
+      background: #ffffff;
     }
 
-    .profile-contacts {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .kicker {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
     }
 
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      text-decoration: none;
-      color: #002f6c;
-      font-weight: 600;
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 34px;
+      line-height: 1.15;
     }
 
-    .icon {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
+    .subtitle {
+      margin: 0;
+      max-width: 1000px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 16px;
     }
 
     .top-actions {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(245, 247, 251, 0.96);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--line);
-      background: #fff;
     }
 
     .top-actions-inner {
       max-width: 1600px;
-      margin: auto;
+      margin: 0 auto;
       padding: 12px 24px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top-actions-left,
+    .top-actions-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
     }
 
     .btn {
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 10px;
       text-decoration: none;
+      font-weight: 700;
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+      white-space: nowrap;
     }
 
     .btn-primary {
       background: #002f6c;
-      color: #fff;
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #001f49;
     }
 
     .btn-secondary {
-      background: #fff;
+      background: #ffffff;
       color: #002f6c;
-      border: 1px solid var(--line);
+      border-color: var(--line);
+    }
+
+    .btn-secondary:hover {
+      border-color: #002f6c;
     }
 
     .separator {
       width: 1px;
-      height: 30px;
-      background: #ccc;
-      margin: 0 6px;
+      height: 34px;
+      background: #cfd6df;
+      margin: 0 2px;
+      flex: 0 0 auto;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      color: #002f6c;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .contact-link:hover {
+      border-color: #002f6c;
+    }
+
+    .icon {
+      width: 17px;
+      height: 17px;
+      display: inline-block;
+      flex: 0 0 auto;
+      fill: currentColor;
     }
 
     main {
       max-width: 1600px;
-      margin: 30px auto;
+      margin: 26px auto 40px auto;
       padding: 0 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 0.85fr 0.85fr;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .card h2 {
+      margin: 0 0 12px 0;
+      font-size: 22px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .list {
+      margin: 14px 0 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .embed-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-top: 22px;
+    }
+
+    .embed-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .embed-title h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .embed-title span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .iframe-wrap {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #ffffff;
     }
 
     iframe {
       width: 100%;
-      height: 90vh;
+      height: calc(100vh - 120px);
+      min-height: 1100px;
       border: 0;
-      border-radius: 10px;
+      display: block;
+      background: #ffffff;
+    }
+
+    footer {
+      max-width: 1600px;
+      margin: 0 auto 30px auto;
+      padding: 0 24px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1100px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      iframe {
+        height: 85vh;
+        min-height: 900px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding-top: 28px;
+      }
+
+      .header-layout {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+      }
+
+      .profile-photo {
+        width: 110px;
+        height: 110px;
+      }
+
+      .top-actions-inner,
+      main,
+      footer {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      iframe {
+        height: 80vh;
+        min-height: 700px;
+      }
+
+      .top-actions-inner {
+        align-items: flex-start;
+      }
+
+      .top-actions-left,
+      .top-actions-right {
+        width: 100%;
+      }
+
+      .contact-link,
+      .btn {
+        font-size: 13px;
+        padding: 10px 12px;
+      }
+
+      .separator {
+        display: none;
+      }
     }
   </style>
 </head>
 
 <body>
-
-<header>
-  <div class="wrap">
-    <div class="header-layout">
-
-      <div>
-        <h1>Rapport interactif et dossier de candidature</h1>
-        <p>Maison du don Galilée – Labège</p>
-      </div>
-
-      <div class="profile-side">
-        <img src="photo_pascal.jpg" class="profile-photo">
-
-        <div class="profile-contacts">
-
-          <a class="contact-link" href="tel:+33782801456">
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.2c1.1.4 2.3.6 3.5.6a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.2.2 2.4.6 3.5a1 1 0 01-.2 1z"/>
-            </svg>
-            07.82.80.14.56
-          </a>
-
-          <a class="contact-link" href="mailto:pascal.azema@outlook.com">
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6z"/>
-            </svg>
-            pascal.azema@outlook.com
-          </a>
-
-          <a class="contact-link" href="https://linkedin.com" target="_blank">
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M4 4h4v16H4z"/>
-            </svg>
-            LinkedIn
-          </a>
-
+  <header>
+    <div class="wrap">
+      <div class="header-layout">
+        <div class="header-text">
+          <div class="kicker">MAISON DU DON GALILÉE - LABÈGE</div>
+          <h1>Rapport interactif et dossier de candidature - Azema Pascal</h1>
+          <p class="subtitle">
+            Cette page centralise le rapport interactif Looker Studio, les éléments de méthode
+            et les sources mobilisées dans le cadre du dossier de candidature pour le poste de développeur territorial.
+          </p>
         </div>
+
+        <img class="profile-photo" src="photo_pascal.jpg" alt="Photo de Pascal Azema">
+      </div>
+    </div>
+  </header>
+
+  <div class="top-actions">
+    <div class="top-actions-inner">
+      <div class="top-actions-left">
+        <a class="btn btn-primary" href="https://datastudio.google.com/embed/reporting/1a04a388-cd35-4495-8003-0ea8d7411247/page/p_56qzvkrt2d" target="_blank">
+          Voir le rapport
+        </a>
+
+        <a class="btn btn-secondary" href="sources.html">
+          Sources et méthodologie
+        </a>
+
+        <a class="btn btn-secondary" href="Rapport_interactif_Azema_Pascal.pdf" target="_blank">
+          Télécharger le rapport en .PDF
+        </a>
+
+        <span class="separator" aria-hidden="true"></span>
+
+        <a class="btn btn-secondary" href="Dossier_candidature.pdf" target="_blank">
+          Dossier de candidature
+        </a>
+
+        <a class="btn btn-secondary" href="References_et_diplomes.pdf" target="_blank">
+          Références et diplômes
+        </a>
       </div>
 
+      <div class="top-actions-right">
+        <a class="contact-link" href="tel:+33782801456">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.56 1 1 0 01-.24 1.01l-2.21 2.22z"/>
+          </svg>
+          07.82.80.14.56
+        </a>
+
+        <a class="contact-link" href="mailto:pascal.azema@outlook.com">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+          pascal.azema@outlook.com
+        </a>
+
+        <a class="contact-link" href="https://www.linkedin.com/in/pascalazema/" target="_blank">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V23h-4v-7.8c0-1.86-.03-4.25-2.59-4.25-2.59 0-2.99 2.02-2.99 4.11V23h-4V8z"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
     </div>
   </div>
-</header>
 
-<div class="top-actions">
-  <div class="top-actions-inner">
+  <main>
+    <section class="grid">
+      <div class="card">
+        <h2>Objet de la page</h2>
+        <p>
+          Le rapport présente une lecture territoriale et économique de l’environnement de la Maison du don Galilée,
+          avec une attention particulière portée à l’accessibilité, au tissu d’entreprises et à la simulation du
+          potentiel de dons de sang et de plasma selon plusieurs scénarios.
+        </p>
+      </div>
 
-    <a class="btn btn-primary" href="#">Voir le rapport</a>
-    <a class="btn btn-secondary" href="sources.html">Sources et méthodologie</a>
-    <a class="btn btn-secondary" href="rapport.pdf">Télécharger le rapport</a>
+      <div class="card">
+        <h2>Contenu disponible</h2>
+        <ul class="list">
+          <li>rapport interactif Looker Studio ;</li>
+          <li>sources de données et méthodologie ;</li>
+          <li>version PDF du rapport ;</li>
+          <li>tableaux et simulations ;</li>
+          <li>dossier de candidature ;</li>
+          <li>références et diplômes.</li>
+        </ul>
+      </div>
 
-    <div class="separator"></div>
+      <div class="card">
+        <h2>Conseil pour la visualisation du rapport</h2>
+        <ul class="list">
+          <li>Pour changer de page sur le rapport, allez dans le menu déroulant en bas à gauche du rapport.;</li>
+           <li>Pour une visualisation optimale et dynamique du rapport sur téléphone, privilégiez le mode paysage en tournant votre téléphone.;</li>
+          <li> En raison de l'appel de nombreuses données, le temps de chargement des pages est estimé à 10-15 secondes</li>
+        </ul>
+      </div>
+    </section>
 
-    <a class="btn btn-secondary" href="Dossier_candidature.pdf">Dossier de candidature</a>
-    <a class="btn btn-secondary" href="References_et_diplomes.pdf">Références et diplômes</a>
+    <section id="rapport" class="embed-card">
+      <div class="embed-title">
+        <h2>Prévisualisation du rapport</h2>
+        <span>Consultation publique</span>
+      </div>
 
-  </div>
-</div>
+      <div class="iframe-wrap">
+        <iframe
+          src="https://datastudio.google.com/embed/reporting/1a04a388-cd35-4495-8003-0ea8d7411247/page/p_56qzvkrt2d"
+          frameborder="0"
+          allowfullscreen
+          sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+        </iframe>
+      </div>
+    </section>
+  </main>
 
-<main>
-
-  <iframe src="https://datastudio.google.com/embed/reporting/1a04a388-cd35-4495-8003-0ea8d7411247/page/p_56qzvkrt2d"></iframe>
-
-</main>
-
+  <footer>
+    Page publiée via GitHub Pages. Le rapport est fourni via Google Looker Studio en mode public.
+  </footer>
 </body>
 </html>
